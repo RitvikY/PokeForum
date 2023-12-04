@@ -1,0 +1,80 @@
+{% extends "header.html" %}
+
+{% block content %}
+<div class="container">
+    <!-- Flash Messages -->
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="alert alert-info">{{ messages[-1] }}</div>
+        {% endif %}
+    {% endwith %}
+
+    <!-- Profile Picture and Greeting -->
+    <div class="row">
+        <div class="col-12 col-md-4">
+            <!-- Profile picture -->
+            {% if profile_pic %}
+            <img class="propic" src="data:image/png;base64,{{ profile_pic }}" alt="Profile Picture">
+            {% else %}
+            <p>None</p>
+            {% endif %}
+        </div>
+        <div class="col">
+            <!-- Greeting (must include the current user's username) -->
+            <h2>Welcome back, {{ current_user.username }}!</h2>
+        </div>
+    </div>
+
+    <!-- Update Username Form -->
+    <div class="row mt-4">
+        <div class="col">
+            <h3>Update Username</h3>
+            <form method="POST" action="">
+                {{ update_username_form.csrf_token }}
+                <div class="form-group">
+                    {{ update_username_form.username.label }}
+                    {{ update_username_form.username(class="form-control") }}
+                    {% if update_username_form.username.errors %}
+                    <div class="alert alert-warning" role="alert">
+                        {% for error in update_username_form.username.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+                {{ update_username_form.submit_username(class="btn btn-primary") }}
+            </form>
+        </div>
+    </div>
+
+    <!-- Update Profile Picture Form -->
+    <div class="row mt-4">
+        <div class="col">
+            <h3>Update Profile Picture</h3>
+            <form method="POST" action="" enctype="multipart/form-data">
+                {{ update_profile_picture_form.csrf_token }}
+                <div class="form-group">
+                    {{ update_profile_picture_form.picture.label }}
+                    {{ update_profile_picture_form.picture(class="form-control") }}
+                    {% if update_profile_picture_form.picture.errors %}
+                    <div class="alert alert-warning" role="alert">
+                        {% for error in update_profile_picture_form.picture.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+                {{ update_profile_picture_form.submit_picture(class="btn btn-primary") }}
+            </form>
+        </div>
+    </div>
+
+    <!-- Link to User's Reviews -->
+    <div class="row mt-4">
+        <div class="col">
+            <!-- Link to see all of the current user's reviews. -->
+            <a href="{{ url_for('users.user_detail', username=current_user.username) }}">View my reviews</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

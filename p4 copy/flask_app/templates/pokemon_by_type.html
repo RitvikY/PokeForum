@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Pokémon with type: {{ type_name | capitalize }}</h1>
+    <ul>
+        {% for pokemon in pokemons %}
+            <li><a href="{{ url_for('pokemon.display_pokemon', name_or_id=pokemon) }}">{{ pokemon | capitalize }}</a></li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

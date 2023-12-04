@@ -1,0 +1,41 @@
+{% extends "base.html" %}  <!-- Make sure this extends the correct base template -->
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='custom.css') }}">
+
+<div class="container mt-4">
+    <div class="row mb-3">
+        <div class="col-md-4">
+            <!-- User's Profile Picture -->
+            {% if user.profile_pic %}
+                <img class="img-fluid rounded-circle propic" src="data:image/png;base64,{{ user.profile_pic }}" alt="{{ user.username }}'s Profile Picture">
+            {% else %}
+                <img class="img-fluid rounded-circle propic" src="{{ url_for('static', filename='default_profile_pic.jpg') }}" alt="Default Profile Picture">
+            {% endif %}
+        </div>
+        <div class="col-md-8">
+            <!-- Indicate which user's reviews we're looking at -->
+            <h2>{{ user.username }}'s Reviews</h2>
+        </div>
+    </div>
+    
+    <div class="user-reviews">
+        <h3>{{ user.username }}'s Reviews</h3>
+        {% if user_reviews %}
+            {% for review in user_reviews  | reverse %}
+                <div class="review">
+                    <h5>
+                        <!-- Hyperlink to the Pokémon details page -->
+                        <a href="{{ url_for('pokemon.display_pokemon', name_or_id=review.pokemon_name) }}">
+                            {{ review.pokemon_name | capitalize }}
+                        </a>
+                    </h5>
+                    <p>{{ review.content }}</p>
+                    <p><small>Reviewed on {{ review.posted_at.strftime('%Y-%m-%d %H:%M:%S') }}</small></p>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No reviews to show.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

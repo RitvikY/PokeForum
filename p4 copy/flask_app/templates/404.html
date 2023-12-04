@@ -1,0 +1,9 @@
+{% extends "header.html" %}
+
+{% block content %}
+<div class="container">
+  <h1>404 Error - Page Not Found</h1>
+  <p>The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.</p>
+  <p><a href="{{ url_for('pokemon.search') }}">Click here</a> to return to the homepage.</p>
+</div>
+{% endblock %}

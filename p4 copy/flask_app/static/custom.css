@@ -1,0 +1,72 @@
+/* custom.css */
+
+/* Apply the brown theme */
+.btn-brown {
+    background-color: #8A6240; /* Brown background */
+    color: white; /* White text */
+  }
+  
+  .btn-brown:hover {
+    background-color: #8b4513; /* Darker brown on hover */
+    color: white;
+  }
+  
+  .pokemon-details {
+    background-color: #f7ead0; /* Light brown/beige background for the details area */
+    padding: 20px;
+    border-radius: 5px;
+  }
+  
+  .pokemon-sprite {
+    display: block;
+    margin: 10px auto; /* Center the image */
+    max-width: 100%; /* Make image responsive */
+    height: 96dp;
+  }
+  
+  .reply-list {
+    background-color: #f7ead0; /* Light brown/beige background for replies */
+    padding: 20px;
+    border-radius: 5px;
+  }
+  
+  .reply-form textarea {
+    border: 1px solid #8A6240; /* Brown border for the textarea */
+  }
+  
+
+  .reply {
+    border: 1px solid #8A6240; /* Brown border color */
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 5px; /* Slightly rounded corners */
+    background-color: #f7ead0; /* Light background for contrast */
+}
+
+
+/* custom.css */
+
+.user-reviews .review {
+    border: 1px solid #8A6240; /* Brown border color */
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 5px; /* Slightly rounded corners */
+    background-color: #f7ead0; /* Light background for contrast */
+}
+
+.review h5 {
+    margin-bottom: 10px;
+}
+
+.review a {
+    color: #6983ea; /* Brown text color for links */
+    text-decoration: none; /* Removes underline from links */
+}
+
+.review a:hover {
+    text-decoration: underline; /* Adds underline on hover for links */
+}
+
+.review p {
+    margin-bottom: 10px; /* Spacing between paragraphs */
+}

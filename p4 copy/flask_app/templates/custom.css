@@ -1,0 +1,89 @@
+/* custom.css */
+
+
+/* Apply the brown theme */
+.btn-brown {
+    background-color: #e06c6c; /* Brown background */
+    color: white; /* White text */
+  }
+  
+  .btn-brown:hover {
+    background-color: #9d6c4a; /* Darker brown on hover */
+    color: white;
+  }
+  
+  .pokemon-details {
+    background-color: #f5f5dc; /* Light brown/beige background for the details area */
+    padding: 20px;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 15px;
+  }
+  
+  .pokemon-sprite {
+    display: block;
+    margin: 10px auto; /* Center the image */
+    max-width: 100%; /* Make image responsive */
+    height: auto;
+    border-radius: 5px;
+  }
+  
+  .reply-list {
+    background-color: #4f4f28; /* Light brown/beige background for replies */
+    padding: 20px;
+    border-radius: 5px;
+  }
+  
+  .reply-form textarea {
+    border: 1px solid #900606; /* Brown border for the textarea */
+  }
+  
+
+  .reply {
+    border: 1px solid #362323; /* Brown border color */
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 5px; /* Slightly rounded corners */
+    background-color: #f5f5dc; /* Light background for contrast */
+}
+
+
+
+
+/* THIS ONE IS NOT DISPLAYING */
+
+.review {
+  background-color: rgb(34, 34, 21); /* Temporary color for testing */
+  border: 2px solid red;
+}
+
+
+.reply small {
+  color: #666; /* Grey color for the timestamp */
+}
+
+
+.reply {
+  border: 1px solid #8b4513; /* Slightly darker brown border color for replies */
+  background-color: #efebe9; /* Lighter shade for replies for contrast */
+  padding: 10px;
+  margin-left: 20px; /* Indent replies for visual hierarchy */
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
+
+.reply p {
+  margin-bottom: 5px; /* Less space between paragraphs in a reply */
+}
+
+/* Styles for reply form */
+form {
+  margin-top: 15px;
+}
+
+form textarea {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+

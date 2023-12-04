@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            {% if pokemon %}
+                <h1 class="text-center mb-4">{{ pokemon.name | capitalize }} - Pokémon Data</h1>
+                <div class="pokemon-details">
+                    <strong>Types:</strong>
+                    <ul>
+                        {% for type in pokemon.types %}
+                            <li><a href="{{ url_for('pokemon.pokemon_by_type', type_name=type) }}">{{ type | capitalize }}</a></li>
+                        {% endfor %}
+                    </ul>    
+                    
+                    
+                    <div class="pokemon-abilities">
+                        <strong>Abilities:</strong>
+                        <ul>
+                            {% for ability in pokemon.abilities %}
+                                <li><a href="{{ url_for('pokemon.pokemon_by_ability', ability_name=ability) }}">{{ ability | capitalize }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    
+                    <p><strong>Height:</strong> {{ pokemon.height }}</p>
+                    <p><strong>Weight:</strong> {{ pokemon.weight }}</p>
+                    <strong>Stats:</strong>
+                    <ul>
+                        {% for stat in pokemon.stats %}
+                            <li>{{ stat.name | capitalize }}: {{ stat.base_stat }}</li>
+                        {% endfor %}
+                    </ul>
+                    
+
+                    {% if evolutions %}
+                    <div class="pokemon-evolutions">
+                        <strong>Evolutions:</strong>
+                        <ul>
+                            {% for evolution in evolutions %}
+                                <li><a href="{{ url_for('pokemon.display_pokemon', name_or_id=evolution) }}">{{ evolution | capitalize }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% endif %}
+
+                    <img src="{{ pokemon.sprites }}" alt="Sprite of {{ pokemon.name }}" class="pokemon-sprite"  style="width:300px;height: 300px;  border-radius: 15px 50px;
+                    border: 2px solid #8b4513;
+                    padding: 20px;">
+                </div>
+
+                <!-- Display Reviews and Reply Forms -->
+                {% for review in reviews %}
+                <div class = "review " style="border: 1px solid #8b4513; background-color: #efebe9; padding: 15px; margin-bottom: 15px; border-radius: 5px; margin-top: 15px;">
+                    <p>
+                        <strong>
+                            <a href="{{ url_for('users.user_detail', username=review.author.username) }}">{{ review.author.username }}</a>:
+                        </strong><br>
+                        {{ review.content }}
+                    </p>
+            
+                        <p><small>Posted on {{ review.posted_at.strftime('%Y-%m-%d %H:%M:%S') }}</small></p>
+
+                    
+                        <!-- Display Replies for this Review -->
+                        {% for reply in review.replies %}
+                            <div class="reply">
+                                <p><strong>{{ reply.author.username }}:</strong><br> {{ reply.content }}</p>
+                                <p><small>Replied on {{ reply.posted_at.strftime('%Y-%m-%d %H:%M:%S') }}</small></p>
+                            </div>
+                        {% endfor %}
+
+                        <button onclick="toggleReplyForm('reply-form-{{ review.id }}')">Reply</button>
+
+
+                        <!-- Reply Form for Logged-in Users -->
+                        <div id="reply-form-{{ review.id }}" style="display: none;">
+                            {% if current_user.is_authenticated %}
+                                <form action="{{ url_for('pokemon.reply_to_review', review_id=review.id) }}" method="post">
+                                    <textarea name="reply_content" placeholder="Reply to this review..." required></textarea>
+                                    <input type="submit" value="Post">
+                                </form>
+                            {% else %}
+                                <p>Please <a href="{{ url_for('users.login') }}">log in</a> to reply.</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endfor %}
+
+              {% if current_user.is_authenticated %}
+    <h3>Post a General Reply</h3>
+        <form action="{{ url_for('pokemon.post_reply', pokemon_name=pokemon.name) }}" method="post" style="margin-top: 20px;">
+            <textarea name="reply_content" placeholder="Write your general reply here..." required 
+                    style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #a52a2a; border-radius: 5px; height: 100px;"></textarea>
+            <input type="submit" value="Submit Post" 
+                style="width: 100%; padding: 10px; background-color: #a52a2a; color: white; border: none; border-radius: 5px; cursor: pointer;">
+        </form>
+{% else %}
+    <p><a href="{{ url_for('users.login') }}">Log in</a> to post a general reply.</p>
+{% endif %}
+
+            {% else %}
+                <p class="text-center">Pokémon not found. Please try a different name or ID.</p>
+            {% endif %}
+            <div class="text-center mt-4">
+                <a href="{{ url_for('pokemon.search') }}" class="btn btn-brown">Search again</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    function toggleReplyForm(formId) {
+        var form = document.getElementById(formId);
+        if (form.style.display === "none") {
+            form.style.display = "block";
+        } else {
+            form.style.display = "none";
+        }
+    }
+</script>
+{% endblock %}
